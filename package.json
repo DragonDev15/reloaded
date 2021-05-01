@@ -1,0 +1,32 @@
+{
+  "name": "reloaded",
+  "version": "0.0.1",
+  "description": "Another NodeJS Discord Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd test && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reloadedjs/reloaded.git"
+  },
+  "keywords": [
+    "reloaded",
+    "reloadedjs",
+    "discord",
+    "discordapi",
+    "library"
+  ],
+  "author": "NotMarx",
+  "license": "MT",
+  "bugs": {
+    "url": "https://github.com/reloadedjs/reloaded/issues"
+  },
+  "homepage": "https://github.com/reloadedjs/reloaded#readme",
+  "dependencies": {
+    "form-data": "^3.0.1",
+    "node-fetch": "^2.6.1",
+    "ws": "^7.4.5",
+    "zlib-sync": "^0.1.7"
+  }
+}
