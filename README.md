@@ -1,4 +1,6 @@
-# Reloaded (WIP)
+# Reloaded (W.I.P)
+
+***NOTE:*** **Please Do Not Use This Library Just Yet As This Is Current Under Development & Isn't In A Stable States For Production!! Testing & Contributing Purpose Are Allowed.**
 
 Another NodeJS Discord Library.
 
@@ -22,7 +24,7 @@ To install **Reloaded**, please follow the next steps:
   "description": "Discord bot made with Reloaded",
   "main": "index.js",
   "scripts": {
-    "test": "cd test && node index.js"
+    "test": "node index.js"
   },
   "author": "YourName",
   "license": "ISC",
