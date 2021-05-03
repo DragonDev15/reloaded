@@ -4,8 +4,8 @@ const ClientUser = require("./Structures/ClientUser.js");
 const Collection = require("./Structures/Collection");
 const Constants = require("./Constants");
 const FormData = require("form-data");
-const Rest = require("./Rest/RestManager");
 const Message = require("./Structures/Message.js");
+const RestManager = require("./Rest/RestManager");
 
 class Client extends EventEmitter {
 
@@ -62,7 +62,7 @@ class Client extends EventEmitter {
          */
         this.messages = new Collection();
 
-        this.rest = Rest;
+        this.rest = RestManager;
         
         this.ws.on("ready", (data) => {
             this.readyAt = new Date();
