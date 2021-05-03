@@ -1,7 +1,4 @@
 import { EventEmitter } from "events";
-import Websocket from "./src/WebSocket/Websocket";
-import ClientUser from "./src/Structures/ClientUser";
-import Rest from "./src/Rest/RestManager";
 
 export class Client extends EventEmitter {
 
@@ -23,7 +20,7 @@ export class Client extends EventEmitter {
 
     messages: Collection;
 
-    rest: Rest;
+    rest: RestManager;
 
     async public connect(): Promise<string>;
 
@@ -58,6 +55,18 @@ export class Client extends EventEmitter {
 
     public removeAllListeners<K extends keyof ClientEvents>(event?: K): this;
     public removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof ClientEvents>): this;
+
+}
+
+export class ClientUser extends User {
+
+    constructor(client: Client, data: object);
+
+    public setActivity(data: object): Promise<any>;
+
+    public setStatus(type: string): Promise<any>;
+
+    public setGame(data: object): Promise<any>;
 
 }
 
@@ -192,6 +201,26 @@ export class MessageEmbed {
 
 }
 
+export class Payload {
+
+    constructor(): Payload;
+
+    public static IDENTIFY(data: object): object;
+
+    public static PRESENCE(data: object): object;
+
+}
+
+export class RestManager {
+
+    constructor()
+
+    public static post(url: string, data: any): Promise<any>;
+
+    public static get(url: string, data: any): Promise<any>;
+
+}
+
 export class User {
 
     constructor(client: Client, data: object);
@@ -217,6 +246,36 @@ export class User {
     public get tag(): string;
 
     public toString(): string;
+
+}
+
+export class WebsocketManager extends EventEmitter {
+
+    constructor(client: Client);
+
+    _client: Client;
+
+    _ws: WebsocketManager;
+
+    _ready: boolean;
+
+    _disconnected: false;
+
+    public login(token: string): void;
+
+    public _identify(data: Payload): void;
+
+    public _handleClose(): void;
+
+    public _error(err: Error): void;
+
+    public send(payload): void;
+
+    public _handleMessages(data: any, flags: any): void;
+
+    public _decompress(data: any, flags: any): any;
+
+    public destroy(): void;
 
 }
 
