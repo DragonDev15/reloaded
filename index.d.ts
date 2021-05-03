@@ -1,10 +1,7 @@
 import { EventEmitter } from "events";
 import Websocket from "./src/WebSocket/Websocket";
 import ClientUser from "./src/Structures/ClientUser";
-import Collection from "./src/Structures/Collection";
 import Rest from "./src/Rest/RestManager";
-// import Message from "./src/Structures/Message";
-// import User from "./src/Structures/User";
 
 export class Client extends EventEmitter {
 
@@ -28,9 +25,6 @@ export class Client extends EventEmitter {
 
     rest: Rest;
 
-    /**
-     * Connect to Discord
-     */
     async public connect(): Promise<string>;
 
     public get uptime(): number;
@@ -67,6 +61,74 @@ export class Client extends EventEmitter {
 
 }
 
+export class Collection<K, V> extends Map {
+
+    constructor();
+
+    public set(key: any, val: any): this;
+
+    public delete(key: any): boolean;
+
+    public get(key: any): any;
+
+    public has(key: any): boolean;
+
+    public clear(): void;
+
+    public array(): any[];
+
+    public keyArray(): any[];
+
+    public first(amount: number): any | Array<any>;
+
+    public firstKey(count?: number): any | Array<any>;
+
+    public last(count?: number): any | Array<any>;
+
+    public lastKey(count?: number): any | Array<any>;
+
+    public random(count?: number): any | Array<any>;
+
+    public randomKey(count?: number): any | Array<any>;
+
+    public findAll(prop: string, value: any): aby[];
+
+    public find(propOrFn: string | Function, value?: any): any;
+
+    public findKey(propOrFn: string | Function, value?: any): any;
+
+    public exists(prop: string, value: any): boolean;
+
+    public sweep(fn: Function, thisArg?: any): number;
+
+    public filter(fn: Function, thisArg?: any): Collection<K, V>;
+
+    public filterArray(fn: Function, thisArg?: any): any[];
+
+    public partition(fn: Function, thisArg?: any): Collection<K, V>[];
+
+    public map(fn: Function, thisArg?: any): any[];
+
+    public some(fn: Function, thisArg?: any): boolean;
+
+    public every(fn: Function, thisArg?: any): boolean;
+
+    public reduce(fn: Function, initialValue?: any): any;
+
+    public tap(fn: Function, thisArg?: any): Collection<K, V>;
+
+    public clone(): Collection;
+
+    public concat(...collections: Collection[]): Collection<K, V>;
+
+    public deleteAll(): Promise<any>[];
+
+    public equals(collection: Collection): boolean;
+
+    public sort(compareFunction?: Function): Collection<K, V>;
+
+}
+
 export class Message {
 
     constructor(client: Client, data: object);
@@ -78,8 +140,6 @@ export class Message {
     public content: string;
 
     public channelID: string;
-
-    public channel: Channel;
 
     public id: string;
 
@@ -101,7 +161,6 @@ export class Message {
 
     public guildID: string;
 
-    public guild: Guild;
 
 }
 
@@ -161,33 +220,10 @@ export class User {
 
 }
 
-export class Guild {
-
-    constructor(client: Client, data: object);
-
-    private _patch(data: object): Guild;
-
-    public id: string;
-
-    public name: string;
-
-}
-
-export class Channel {
-
-    constructor(client: Client, data: object);
-
-    private _patch(data: object): Channel;
-
-    public id: string;
-
-}
-
 export const version: string;
 
 interface ClientEvents {
     ready: [];
     messageCreate: [message: Message, guild: Guild];
     messageDelete: [message: Message];
-    guildCreate: [guild: Guild];
 }
