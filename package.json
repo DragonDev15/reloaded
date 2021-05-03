@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Another NodeJS Discord Library",
   "main": "index.js",
-
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reloadedjs/reloaded.git"
