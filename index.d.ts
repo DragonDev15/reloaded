@@ -1,7 +1,4 @@
 import { EventEmitter } from "events";
-import Websocket from "./libs/WebSocket/Websocket";
-import ClientUser from "./libs/Structures/ClientUser";
-import Rest from "./libs/Rest/RestManager";
 
 export class Client extends EventEmitter {
 
@@ -9,7 +6,7 @@ export class Client extends EventEmitter {
 
     token: string;
 
-    ws: Websocket;
+    ws: WebsocketManager;
 
     readyAt: null;
 
@@ -23,9 +20,9 @@ export class Client extends EventEmitter {
 
     messages: Collection;
 
-    rest: Rest;
+    rest: RestManager;
 
-    async public connect(): Promise<string>;
+    public connect(): Promise<string>;
 
     public get uptime(): number;
 
@@ -61,7 +58,19 @@ export class Client extends EventEmitter {
 
 }
 
-export class Collection<K, V> extends Map {
+export class ClientUser extends User {
+
+    constructor(client: Client, data: object);
+
+    public setActivity(data: object): Promise<any>;
+
+    public setStatus(type: string): Promise<any>;
+
+    public setGame(data: object): Promise<any>;
+
+}
+
+export class Collection extends Map {
 
     constructor();
 
@@ -91,7 +100,7 @@ export class Collection<K, V> extends Map {
 
     public randomKey(count?: number): any | Array<any>;
 
-    public findAll(prop: string, value: any): aby[];
+    public findAll(prop: string, value: any): any[];
 
     public find(propOrFn: string | Function, value?: any): any;
 
@@ -101,11 +110,11 @@ export class Collection<K, V> extends Map {
 
     public sweep(fn: Function, thisArg?: any): number;
 
-    public filter(fn: Function, thisArg?: any): Collection<K, V>;
+    public filter(fn: Function, thisArg?: any): Collection
 
     public filterArray(fn: Function, thisArg?: any): any[];
 
-    public partition(fn: Function, thisArg?: any): Collection<K, V>[];
+    public partition(fn: Function, thisArg?: any): Collection[];
 
     public map(fn: Function, thisArg?: any): any[];
 
@@ -115,17 +124,17 @@ export class Collection<K, V> extends Map {
 
     public reduce(fn: Function, initialValue?: any): any;
 
-    public tap(fn: Function, thisArg?: any): Collection<K, V>;
+    public tap(fn: Function, thisArg?: any): Collection;
 
     public clone(): Collection;
 
-    public concat(...collections: Collection[]): Collection<K, V>;
+    public concat(...collections: Collection[]): Collection;
 
     public deleteAll(): Promise<any>[];
 
     public equals(collection: Collection): boolean;
 
-    public sort(compareFunction?: Function): Collection<K, V>;
+    public sort(compareFunction?: Function): Collection;
 
 }
 
@@ -192,6 +201,26 @@ export class MessageEmbed {
 
 }
 
+export class Payload {
+
+    constructor();
+
+    public static IDENTIFY(data: object): object;
+
+    public static PRESENCE(data: object): object;
+
+}
+
+export class RestManager {
+
+    constructor()
+
+    public static post(url: string, data: any): Promise<any>;
+
+    public static get(url: string, data: any): Promise<any>;
+
+}
+
 export class User {
 
     constructor(client: Client, data: object);
@@ -220,10 +249,40 @@ export class User {
 
 }
 
+export class WebsocketManager extends EventEmitter {
+
+    constructor(client: Client);
+
+    _client: Client;
+
+    _ws: WebsocketManager;
+
+    _ready: boolean;
+
+    _disconnected: false;
+
+    public login(token: string): void;
+
+    public _identify(data: Payload): void;
+
+    public _handleClose(): void;
+
+    public _error(err: Error): void;
+
+    public send(payload): void;
+
+    public _handleMessages(data: any, flags: any): void;
+
+    public _decompress(data: any, flags: any): any;
+
+    public destroy(): void;
+
+}
+
 export const version: string;
 
 interface ClientEvents {
     ready: [];
-    messageCreate: [message: Message, guild: Guild];
+    messageCreate: [message: Message];
     messageDelete: [message: Message];
 }
