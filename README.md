@@ -1,8 +1,8 @@
 # Reloaded (W.I.P)
 
-***NOTE:*** **Please Do Not Use This Library Just Yet As This Is Current Under Development & Isn't In A Stable States For Production!! Testing & Contributing Purpose Are Allowed.**
+***NOTE:*** **Not Recommended For Production Yet**
 
-Another NodeJS Discord Library.
+Reloaded, Another NodeJS Discord Library.
 
 ---
 
@@ -70,4 +70,3 @@ client.connect();
 ```
 
 ---
-
